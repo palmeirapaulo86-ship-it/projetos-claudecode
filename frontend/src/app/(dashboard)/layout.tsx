@@ -10,6 +10,7 @@ import {
   DollarSign,
   Settings,
   LogOut,
+  Sparkles,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -18,6 +19,7 @@ import { ErrorBoundary } from '@/components/shared/ErrorBoundary'
 
 const navItems = [
   { href: '/dashboard', label: 'Visão Geral', icon: BarChart2 },
+  { href: '/analyze-title', label: 'Análise de Título', icon: Sparkles },
   { href: '/dashboard/listings', label: 'Meus Anúncios', icon: TrendingDown },
   { href: '/dashboard/questions', label: 'Perguntas', icon: MessageSquare },
   { href: '/dashboard/profitability', label: 'Rentabilidade', icon: DollarSign },

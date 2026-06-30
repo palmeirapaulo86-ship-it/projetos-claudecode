@@ -32,3 +32,17 @@ export interface Listing {
   salesLast30Days: number
   lastAnalyzedAt: string | null
 }
+
+export interface TitleAnalysisOutput {
+  score: number
+  problemas: string[]
+  sugestoes: string[]
+  titulos_alternativos: string[]
+}
+
+// Estados retornados pelo polling do job de análise
+export type AnalysisStatus =
+  | { status: 'pending' }
+  | { status: 'processing' }
+  | { status: 'failed'; reason: string }
+  | { status: 'done'; result: { analysisId: string; output: TitleAnalysisOutput } }

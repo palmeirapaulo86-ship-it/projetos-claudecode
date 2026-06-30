@@ -5,6 +5,7 @@ import { globalRateLimiter } from './middleware/rateLimiter'
 import { errorHandler } from './middleware/errorHandler'
 import { requestLogger } from './middleware/requestLogger'
 import { successResponse } from './types'
+import { listingRouter } from './routes/listing.routes'
 
 export const app = express()
 
@@ -23,8 +24,8 @@ app.get('/health', (_req, res) => {
   res.json(successResponse({ status: 'ok', env: process.env.NODE_ENV }))
 })
 
-// Rotas serão registradas aqui conforme cada feature for construída
-// Exemplo: app.use('/api/listings', listingsRouter)
+// Rotas das features
+app.use('/api/listings', listingRouter)
 
 // Middleware de erro — deve ser o último
 app.use(errorHandler)

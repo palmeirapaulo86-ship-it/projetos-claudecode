@@ -79,6 +79,18 @@ Sempre retornar JSON nesse formato:
 }
 ```
 
+## Comandos de desenvolvimento
+Backend (pasta `backend/`): `npm run dev` (tsx watch), `npm run build`, `npm run test` (Vitest), `npm run test:run`, `npm run prisma:migrate`, `npm run prisma:generate`.
+Frontend (pasta `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `npm run test`.
+Rodar um único teste backend: `npx vitest run src/services/listing.service.test.ts`.
+
+## Estado atual (features construídas)
+- **Estrutura base**: backend Express (`backend/src/`) com lib (prisma, redis, bull, logger, env), middleware (auth JWT, rate limit, errorHandler) e schema Prisma completo. Frontend Next.js 14 com login, dashboard, layout autenticado e componentes shared (ErrorBoundary, Skeleton, Providers).
+- **Feature 1 — Análise de Título com IA** (completa): `POST /api/listings/:id/analyze/title` enfileira na `aiAnalysisQueue` (Bull) e retorna jobId; `GET /api/listings/:id/analyze/title/:jobId` faz o polling do resultado (com checagem anti-vazamento por tenantId). Pipeline de IA em `backend/src/services/ai/titleAnalysis.pipeline.ts` (cache Redis 24h + retry único + validação Zod, modelo `claude-sonnet-4-6`). Tela em `frontend/src/app/(dashboard)/analyze-title/` com ScoreCircle visual.
+
+## Padrão de IA (ai-engine)
+Cliente Anthropic em `backend/src/lib/anthropic.ts`; modelo sempre `claude-sonnet-4-6` (constante `CLAUDE_MODEL`). Todo pipeline: cache → prompt → API → `extrairJSON` → validação Zod → cache. Output da IA sempre JSON estruturado validado por Zod antes de salvar.
+
 ## Variáveis de ambiente necessárias (criar .env.example)
 ```
 DATABASE_URL=
