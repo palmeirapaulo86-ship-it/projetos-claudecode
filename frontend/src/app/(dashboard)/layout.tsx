@@ -20,6 +20,7 @@ import { ErrorBoundary } from '@/components/shared/ErrorBoundary'
 const navItems = [
   { href: '/dashboard', label: 'Visão Geral', icon: BarChart2 },
   { href: '/analyze-title', label: 'Análise de Título', icon: Sparkles },
+  { href: '/price-monitor', label: 'Monitor de Preço', icon: TrendingDown },
   { href: '/dashboard/listings', label: 'Meus Anúncios', icon: TrendingDown },
   { href: '/dashboard/questions', label: 'Perguntas', icon: MessageSquare },
   { href: '/dashboard/profitability', label: 'Rentabilidade', icon: DollarSign },

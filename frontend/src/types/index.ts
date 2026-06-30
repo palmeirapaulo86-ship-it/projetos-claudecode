@@ -46,3 +46,36 @@ export type AnalysisStatus =
   | { status: 'processing' }
   | { status: 'failed'; reason: string }
   | { status: 'done'; result: { analysisId: string; output: TitleAnalysisOutput } }
+
+// ----- Feature 2: Monitor de Preço -----
+export interface Competitor {
+  id: string
+  sellerName: string
+  title: string
+  price: number
+  stock: number | null
+  hasBuyBox: boolean
+  updatedAt: string
+}
+
+export interface CompetitorsView {
+  precoProprio: number | null
+  menorPrecoConcorrente: number | null
+  acimaDaConcorrencia: boolean
+  competitors: Competitor[]
+}
+
+export interface PricePoint {
+  price: number
+  hasBuyBox: boolean
+  capturedAt: string
+}
+
+export interface Alert {
+  id: string
+  type: 'price_drop' | 'buy_box_lost'
+  config: Record<string, unknown>
+  isActive: boolean
+  lastFiredAt: string | null
+  createdAt: string
+}

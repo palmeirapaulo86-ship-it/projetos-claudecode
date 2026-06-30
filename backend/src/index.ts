@@ -5,6 +5,7 @@ import { logger } from './lib/logger'
 import { prisma } from './lib/prisma'
 import { redis } from './lib/redis'
 import { registrarWorkerAnaliseDeTitulo } from './jobs/titleAnalysis.job'
+import { registrarMonitorDePreco } from './jobs/priceMonitor.job'
 
 // Validar todas as variáveis de ambiente antes de iniciar
 validateEnv()
@@ -16,8 +17,9 @@ async function main() {
   await prisma.$connect()
   logger.info('Banco de dados conectado')
 
-  // Registra os workers Bull (processamento assíncrono de IA)
+  // Registra os workers Bull (processamento assíncrono de IA e scraping)
   registrarWorkerAnaliseDeTitulo()
+  await registrarMonitorDePreco()
 
   const server = app.listen(PORT, () => {
     logger.info(`Servidor rodando na porta ${PORT} [${process.env.NODE_ENV}]`)

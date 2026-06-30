@@ -6,6 +6,7 @@ import { errorHandler } from './middleware/errorHandler'
 import { requestLogger } from './middleware/requestLogger'
 import { successResponse } from './types'
 import { listingRouter } from './routes/listing.routes'
+import { competitorRouter } from './routes/competitor.routes'
 
 export const app = express()
 
@@ -26,6 +27,7 @@ app.get('/health', (_req, res) => {
 
 // Rotas das features
 app.use('/api/listings', listingRouter)
+app.use('/api/competitors', competitorRouter)
 
 // Middleware de erro — deve ser o último
 app.use(errorHandler)

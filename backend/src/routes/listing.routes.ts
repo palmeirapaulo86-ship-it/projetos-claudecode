@@ -5,6 +5,12 @@ import {
   analisarTituloController,
   statusAnaliseController,
 } from '../controllers/listing.controller'
+import {
+  adicionarConcorrenteController,
+  listarConcorrentesController,
+  criarAlertaController,
+  listarAlertasController,
+} from '../controllers/competitor.controller'
 
 export const listingRouter = Router()
 
@@ -21,3 +27,9 @@ listingRouter.get(
   autenticarUsuario,
   statusAnaliseController
 )
+
+// Feature 2 — Monitor de Preço de Concorrentes
+listingRouter.post('/:id/competitors', autenticarUsuario, adicionarConcorrenteController)
+listingRouter.get('/:id/competitors', autenticarUsuario, listarConcorrentesController)
+listingRouter.post('/:id/alerts', autenticarUsuario, criarAlertaController)
+listingRouter.get('/:id/alerts', autenticarUsuario, listarAlertasController)
