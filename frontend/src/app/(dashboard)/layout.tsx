@@ -22,7 +22,7 @@ const navItems = [
   { href: '/analyze-title', label: 'Análise de Título', icon: Sparkles },
   { href: '/price-monitor', label: 'Monitor de Preço', icon: TrendingDown },
   { href: '/dashboard/listings', label: 'Meus Anúncios', icon: TrendingDown },
-  { href: '/dashboard/questions', label: 'Perguntas', icon: MessageSquare },
+  { href: '/questions', label: 'Perguntas', icon: MessageSquare },
   { href: '/dashboard/profitability', label: 'Rentabilidade', icon: DollarSign },
   { href: '/dashboard/settings', label: 'Configurações', icon: Settings },
 ]

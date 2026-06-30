@@ -142,23 +142,30 @@ model Alert {
 }
 
 model Question {
-  id           String    @id @default(uuid())
-  tenantId     String
-  listingId    String
-  externalId   String
-  platform     String
-  buyerName    String?
-  questionText String    @db.Text
-  answerText   String?   @db.Text
-  answeredBy   String?   // manual, ai_auto, ai_suggested
-  answeredAt   DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id              String    @id @default(uuid())
+  tenantId        String
+  listingId       String
+  externalId      String
+  platform        String
+  buyerName       String?
+  questionText    String    @db.Text
+  answerText      String?   @db.Text
+  answeredBy      String?   // manual, ai_auto, ai_suggested
+  answeredAt      DateTime?
+  // Campos da IA (Feature 3)
+  status          String    @default("pending") // pending, suggested, answered
+  suggestedAnswer String?   @db.Text            // resposta sugerida pela IA (antes do envio)
+  aiConfidence    Decimal?  @db.Decimal(3, 2)   // 0.00 - 1.00
+  aiNeedsReview   Boolean   @default(false)      // IA marcou que precisa de revisão humana
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   listing Listing @relation(fields: [listingId], references: [id])
 
+  @@unique([tenantId, platform, externalId])
   @@index([tenantId])
   @@index([listingId])
+  @@index([tenantId, status])
   @@map("questions")
 }
 

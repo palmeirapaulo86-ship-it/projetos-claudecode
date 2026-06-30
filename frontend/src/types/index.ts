@@ -79,3 +79,20 @@ export interface Alert {
   lastFiredAt: string | null
   createdAt: string
 }
+
+// ----- Feature 3: Resposta Automática de Perguntas -----
+export interface Question {
+  id: string
+  listingId: string
+  externalId: string
+  buyerName: string | null
+  questionText: string
+  answerText: string | null
+  answeredBy: string | null // manual, ai_auto, ai_suggested
+  answeredAt: string | null
+  status: 'pending' | 'suggested' | 'answered'
+  suggestedAnswer: string | null
+  aiConfidence: string | number | null // Decimal vem como string do Prisma
+  aiNeedsReview: boolean
+  createdAt: string
+}

@@ -16,6 +16,9 @@ const envSchema = z.object({
   // Proxy de scraping — opcional: sem ele o scraper roda com IP direto (só dev)
   BRIGHTDATA_USERNAME: z.string().optional(),
   BRIGHTDATA_PASSWORD: z.string().optional(),
+  // Credenciais do Mercado Livre — opcionais até o OAuth por tenant existir (dev)
+  ML_ACCESS_TOKEN: z.string().optional(),
+  ML_SELLER_ID: z.string().optional(),
 })
 
 // Validar na inicialização — encerra o processo se faltar variável obrigatória

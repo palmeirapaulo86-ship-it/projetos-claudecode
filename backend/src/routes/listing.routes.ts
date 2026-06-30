@@ -11,6 +11,10 @@ import {
   criarAlertaController,
   listarAlertasController,
 } from '../controllers/competitor.controller'
+import {
+  criarAutoReplyController,
+  listarAutoRepliesController,
+} from '../controllers/question.controller'
 
 export const listingRouter = Router()
 
@@ -33,3 +37,7 @@ listingRouter.post('/:id/competitors', autenticarUsuario, adicionarConcorrenteCo
 listingRouter.get('/:id/competitors', autenticarUsuario, listarConcorrentesController)
 listingRouter.post('/:id/alerts', autenticarUsuario, criarAlertaController)
 listingRouter.get('/:id/alerts', autenticarUsuario, listarAlertasController)
+
+// Feature 3 — Regras de auto-resposta
+listingRouter.post('/:id/auto-replies', autenticarUsuario, criarAutoReplyController)
+listingRouter.get('/:id/auto-replies', autenticarUsuario, listarAutoRepliesController)
