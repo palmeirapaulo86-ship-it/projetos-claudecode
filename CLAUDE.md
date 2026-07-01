@@ -80,9 +80,13 @@ Sempre retornar JSON nesse formato:
 ```
 
 ## Comandos de desenvolvimento
-Backend (pasta `backend/`): `npm run dev` (tsx watch), `npm run build`, `npm run test` (Vitest), `npm run test:run`, `npm run prisma:migrate`, `npm run prisma:generate`.
-Frontend (pasta `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `npm run test`.
+Setup local completo (passo a passo para iniciantes): ver `GUIA-LOCAL.md`.
+- **Banco/Redis:** `docker compose up -d` na raiz (usa `docker-compose.yml` — Postgres em 5432, Redis em 6379).
+- **Primeira vez (criar tabelas):** dentro de `backend/`, `npx prisma generate` e `npx prisma db push` (usa `db push` em vez de `migrate deploy` porque não há migration de baseline das tabelas base).
+Backend (pasta `backend/`): `npm run dev` (tsx watch), `npm run build`, `npm run test` (Vitest), `npm run test:run`, `npm run prisma:generate`. Requer `backend/.env` (ver `.env.example`); `validateEnv()` exige todas as vars — use placeholders para Supabase/Stripe em dev local.
+Frontend (pasta `frontend/`): `npm run dev`, `npm run build`, `npm run lint`, `npm run test`. Requer `frontend/.env.local` com `NEXT_PUBLIC_API_URL`.
 Rodar um único teste backend: `npx vitest run src/services/listing.service.test.ts`.
+Scraper: após `npm install` no backend, rodar `npx playwright install chromium`.
 
 ## Estado atual (features construídas)
 - **Estrutura base**: backend Express (`backend/src/`) com lib (prisma, redis, bull, logger, env), middleware (auth JWT, rate limit, errorHandler) e schema Prisma completo. Frontend Next.js 14 com login, dashboard, layout autenticado e componentes shared (ErrorBoundary, Skeleton, Providers).
