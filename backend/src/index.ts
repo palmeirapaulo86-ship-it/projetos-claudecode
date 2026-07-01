@@ -8,6 +8,7 @@ import { registrarWorkerAnaliseDeTitulo } from './jobs/titleAnalysis.job'
 import { registrarMonitorDePreco } from './jobs/priceMonitor.job'
 import { registrarColetorDePerguntas } from './jobs/questionCollector.job'
 import { registrarWorkerSugestaoResposta } from './jobs/questionAi.job'
+import { registrarWorkerRentabilidade } from './jobs/profitabilityAi.job'
 
 // Validar todas as variáveis de ambiente antes de iniciar
 validateEnv()
@@ -22,6 +23,7 @@ async function main() {
   // Registra os workers Bull (processamento assíncrono de IA e scraping)
   registrarWorkerAnaliseDeTitulo()
   registrarWorkerSugestaoResposta()
+  registrarWorkerRentabilidade()
   await registrarMonitorDePreco()
   await registrarColetorDePerguntas()
 

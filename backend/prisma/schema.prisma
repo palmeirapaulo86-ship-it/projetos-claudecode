@@ -60,10 +60,12 @@ model Listing {
   updatedAt        DateTime  @updatedAt
   deletedAt        DateTime?
 
-  tenant      Tenant            @relation(fields: [tenantId], references: [id])
-  analyses    ListingAnalysis[]
-  competitors Competitor[]
-  questions   Question[]
+  tenant                 Tenant                  @relation(fields: [tenantId], references: [id])
+  analyses               ListingAnalysis[]
+  competitors            Competitor[]
+  questions              Question[]
+  productCost            ProductCost?
+  profitabilitySnapshots ProfitabilitySnapshot[]
 
   @@unique([tenantId, platform, externalId])
   @@index([tenantId])
@@ -167,6 +169,41 @@ model Question {
   @@index([listingId])
   @@index([tenantId, status])
   @@map("questions")
+}
+
+// Custos de um produto (um por anúncio) — base do cálculo de rentabilidade real
+model ProductCost {
+  id                 String   @id @default(uuid())
+  tenantId           String
+  listingId          String   @unique // um conjunto de custos por anúncio
+  productCost        Decimal  @db.Decimal(10, 2) // custo de aquisição do produto
+  shippingCost       Decimal  @db.Decimal(10, 2) // custo de frete por unidade
+  platformFeePercent Decimal  @db.Decimal(5, 2)  // taxa da plataforma (%)
+  returnRatePercent  Decimal  @default(0) @db.Decimal(5, 2) // taxa de devoluções (%)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  listing Listing @relation(fields: [listingId], references: [id])
+
+  @@index([tenantId])
+  @@map("product_costs")
+}
+
+// Foto da rentabilidade no tempo — alimenta o gráfico de margem ao longo do tempo
+model ProfitabilitySnapshot {
+  id            String   @id @default(uuid())
+  tenantId      String
+  listingId     String
+  netProfit     Decimal  @db.Decimal(10, 2)
+  marginPercent Decimal  @db.Decimal(6, 2)
+  capturedAt    DateTime @default(now())
+
+  listing Listing @relation(fields: [listingId], references: [id])
+
+  @@index([tenantId])
+  @@index([listingId])
+  @@index([capturedAt])
+  @@map("profitability_snapshots")
 }
 
 model AutoReply {

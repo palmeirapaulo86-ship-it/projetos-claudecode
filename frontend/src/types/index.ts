@@ -80,6 +80,42 @@ export interface Alert {
   createdAt: string
 }
 
+// ----- Feature 4: Rentabilidade -----
+export interface ProfitabilityRow {
+  listingId: string
+  title: string
+  price: number
+  netProfit: number
+  marginPercent: number
+  breakEvenPrice: number
+  isLoss: boolean
+}
+
+export interface ProfitabilityDetail {
+  title: string
+  price: number
+  platformFeeValue: number
+  returnLossValue: number
+  totalCost: number
+  netProfit: number
+  marginPercent: number
+  breakEvenPrice: number
+  isLoss: boolean
+  history: { netProfit: number; marginPercent: number; capturedAt: string }[]
+}
+
+export interface ProfitabilityAiOutput {
+  analise: string
+  recomendacao: string
+  urgencia: 'baixa' | 'media' | 'alta'
+}
+
+export type ProfitAnalysisStatus =
+  | { status: 'pending' }
+  | { status: 'processing' }
+  | { status: 'failed'; reason: string }
+  | { status: 'done'; result: { result: ProfitabilityDetail; ai: ProfitabilityAiOutput } }
+
 // ----- Feature 3: Resposta Automática de Perguntas -----
 export interface Question {
   id: string

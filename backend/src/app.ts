@@ -8,6 +8,7 @@ import { successResponse } from './types'
 import { listingRouter } from './routes/listing.routes'
 import { competitorRouter } from './routes/competitor.routes'
 import { questionRouter } from './routes/question.routes'
+import { profitabilityRouter } from './routes/profitability.routes'
 
 export const app = express()
 
@@ -30,6 +31,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/listings', listingRouter)
 app.use('/api/competitors', competitorRouter)
 app.use('/api/questions', questionRouter)
+app.use('/api/profitability', profitabilityRouter)
 
 // Middleware de erro — deve ser o último
 app.use(errorHandler)
