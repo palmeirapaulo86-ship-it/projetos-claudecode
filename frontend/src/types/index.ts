@@ -80,6 +80,47 @@ export interface Alert {
   createdAt: string
 }
 
+// ----- Feature 5: Detector de Queda de Vendas -----
+export interface SalesTrendRow {
+  listingId: string
+  title: string
+  price: number
+  unitsRecent30: number
+  unitsPrevious30: number
+  declinePercent: number
+  hasDrop: boolean
+}
+
+export interface SalesTrend {
+  totalUnits90: number
+  unitsRecent30: number
+  unitsPrevious30: number
+  declinePercent: number
+  hasDrop: boolean
+  avgDailyRecent: number
+  avgDailyPrevious: number
+  daysWithData: number
+}
+
+export interface SalesPoint {
+  date: string
+  units: number
+  revenue: number
+}
+
+export interface SalesDiagnosisOutput {
+  causa_provavel: string
+  evidencias: string[]
+  acoes_recomendadas: string[]
+  urgencia: 'baixa' | 'media' | 'alta'
+}
+
+export type DiagnosisStatus =
+  | { status: 'pending' }
+  | { status: 'processing' }
+  | { status: 'failed'; reason: string }
+  | { status: 'done'; result: { trend: SalesTrend; diagnosis: SalesDiagnosisOutput } }
+
 // ----- Feature 4: Rentabilidade -----
 export interface ProfitabilityRow {
   listingId: string

@@ -66,6 +66,7 @@ model Listing {
   questions              Question[]
   productCost            ProductCost?
   profitabilitySnapshots ProfitabilitySnapshot[]
+  dailySales             DailySale[]
 
   @@unique([tenantId, platform, externalId])
   @@index([tenantId])
@@ -187,6 +188,26 @@ model ProductCost {
 
   @@index([tenantId])
   @@map("product_costs")
+}
+
+// Vendas diárias por produto — base do detector de queda de vendas (Feature 5)
+model DailySale {
+  id        String   @id @default(uuid())
+  tenantId  String
+  listingId String
+  date      DateTime @db.Date // dia da venda (sem hora)
+  units     Int      @default(0)
+  revenue   Decimal  @default(0) @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  listing Listing @relation(fields: [listingId], references: [id])
+
+  @@unique([listingId, date]) // uma linha por produto por dia
+  @@index([tenantId])
+  @@index([listingId])
+  @@index([date])
+  @@map("daily_sales")
 }
 
 // Foto da rentabilidade no tempo — alimenta o gráfico de margem ao longo do tempo

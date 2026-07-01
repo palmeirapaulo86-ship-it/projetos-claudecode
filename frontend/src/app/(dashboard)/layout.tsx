@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   Sparkles,
+  LineChart,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -24,6 +25,7 @@ const navItems = [
   { href: '/dashboard/listings', label: 'Meus Anúncios', icon: TrendingDown },
   { href: '/questions', label: 'Perguntas', icon: MessageSquare },
   { href: '/profitability', label: 'Rentabilidade', icon: DollarSign },
+  { href: '/sales-drop', label: 'Queda de Vendas', icon: LineChart },
   { href: '/dashboard/settings', label: 'Configurações', icon: Settings },
 ]
 

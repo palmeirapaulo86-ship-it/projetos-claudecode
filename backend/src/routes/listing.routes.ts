@@ -21,6 +21,12 @@ import {
   analisarRentController,
   statusAnaliseRentController,
 } from '../controllers/profitability.controller'
+import {
+  registrarVendasController,
+  tendenciaController,
+  diagnosticarController,
+  statusDiagnosticoController,
+} from '../controllers/salesDrop.controller'
 
 export const listingRouter = Router()
 
@@ -53,3 +59,9 @@ listingRouter.post('/:id/costs', autenticarUsuario, cadastrarCustosController)
 listingRouter.get('/:id/profitability', autenticarUsuario, rentabilidadeController)
 listingRouter.post('/:id/profitability/analyze', autenticarUsuario, aiRateLimiter, analisarRentController)
 listingRouter.get('/:id/profitability/analyze/:jobId', autenticarUsuario, statusAnaliseRentController)
+
+// Feature 5 — Detector de queda de vendas
+listingRouter.post('/:id/sales', autenticarUsuario, registrarVendasController)
+listingRouter.get('/:id/sales', autenticarUsuario, tendenciaController)
+listingRouter.post('/:id/diagnosis', autenticarUsuario, aiRateLimiter, diagnosticarController)
+listingRouter.get('/:id/diagnosis/:jobId', autenticarUsuario, statusDiagnosticoController)

@@ -9,6 +9,7 @@ import { registrarMonitorDePreco } from './jobs/priceMonitor.job'
 import { registrarColetorDePerguntas } from './jobs/questionCollector.job'
 import { registrarWorkerSugestaoResposta } from './jobs/questionAi.job'
 import { registrarWorkerRentabilidade } from './jobs/profitabilityAi.job'
+import { registrarWorkerDiagnosticoVendas } from './jobs/salesDiagnosis.job'
 
 // Validar todas as variáveis de ambiente antes de iniciar
 validateEnv()
@@ -24,6 +25,7 @@ async function main() {
   registrarWorkerAnaliseDeTitulo()
   registrarWorkerSugestaoResposta()
   registrarWorkerRentabilidade()
+  registrarWorkerDiagnosticoVendas()
   await registrarMonitorDePreco()
   await registrarColetorDePerguntas()
 
